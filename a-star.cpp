@@ -1,8 +1,8 @@
 /*
-	Cory Mollenhour
-	CSCI 4350 - Joshua Phillips
-	Due: 10/2/2018 11:00 PM
-	A* 8-puzzle solver
+CORY MOLLENHOUR
+CSCI 4350
+OLA1
+10/2/2018
 */
 
 #include <iostream>
@@ -40,7 +40,7 @@ unordered_map<int, Node*> closedList;
 int changeNum = 0;
 int i = 0;
 int j = 0;
-int heuristic = 1;
+int heuristic = 2;
 int newX, newY;
 int sortedID = 0;
 int currentDepth = 0;
@@ -132,7 +132,7 @@ void printSolution(Node * node) {
 Node * newNode(int board[3][3], int zeroX, int zeroY, int depth, Node* parent) {
 	Node * node = new Node();
 	node->parent = parent;
-	memcpy(node->board, board, sizeof node->board);
+	
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			node->board[i][j] = board[i][j];
@@ -263,8 +263,16 @@ void solvePuzzle(int initial[3][3], int x, int y){
 			currentDepth++;
 		} else {
 			depthOfSolution = min->depth;
+			
+			nodesInMemory = closedList.size() + nodesInOpenList;
+			branchingFactor = pow(nodesInMemory, (1.0 / depthOfSolution));
+			printf("V: %i	Nodes Visited\n", nodesVisited);
+			printf("N: %i	Nodes In Memory\n", nodesInMemory);
+			printf("d: %i	Depth of Solution\n", depthOfSolution);
+			printf("b: %f	Branch Factor\n\n", branchingFactor);
+			
 			printSolution(min);
-			printf("FOUND GOAL");
+			
 			break;
 		}
 		closedList.emplace(min->configID, min);
@@ -291,7 +299,7 @@ int main(int argc, char* argv[]) {
 	int randomNum = 0;
 	clock_t t;
 	int numChars = 0;
-
+	heuristic = atoi(argv[1]);
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			cin >> c;
@@ -312,17 +320,11 @@ int main(int argc, char* argv[]) {
 	cout << endl << endl;
 
 	t = clock();
-	printf("Calculating...\n");
+	//printf("Calculating...\n");
 	solvePuzzle(startBoard, startX, startY);
 	t = clock() - t;
-	printf("%f seconds.\n\n", ((float)t) / CLOCKS_PER_SEC);
+	//printf("%f seconds.\n\n", ((float)t) / CLOCKS_PER_SEC);
 
-	nodesInMemory = closedList.size() + nodesInOpenList;
-	branchingFactor = pow(nodesInMemory, (1.0 / depthOfSolution));
-	printf("V: %i	Nodes Visited\n", nodesVisited);
-	printf("N: %i	Nodes In Memory\n", nodesInMemory);
-	printf("d: %i	Depth of Solution\n", depthOfSolution);
-	printf("b: %f	Branch Factor\n\n", branchingFactor);
 
 	cout << endl;
 	return 0;

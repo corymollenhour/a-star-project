@@ -1,3 +1,10 @@
+/*
+CORY MOLLENHOUR
+CSCI 4350
+OLA1
+10/2/2018
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,11 +47,9 @@ int main(int argc, char* argv[]) {
 		}
 
 	}
-	cout << endl << "Seed: ";
-	cin >> seed;
-	cout << endl << "Moves: ";
-	cin >> moves;
 
+	seed = atoi(argv[1]);
+	moves = atoi(argv[2]);
 	srand(seed);
 
 	randomNum = getRandom();
@@ -65,6 +70,7 @@ int main(int argc, char* argv[]) {
 		}
 		cout << endl;
 	}
+	cout << endl;
 
 	return 0;
 }

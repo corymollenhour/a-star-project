@@ -1,8 +1,5 @@
 /*
 CORY MOLLENHOUR
-CSCI 4350
-OLA1
-10/2/2018
 */
 
 #include <iostream>
